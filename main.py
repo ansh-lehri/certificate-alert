@@ -32,8 +32,6 @@ def check_ssl_expiry(hostname_ports):
                 if getattr(ssl_certificate_object, 'certificate_fetched'):
                     pem_cert_object = ConvertSSlCertificate(ssl_certificate_object).der_to_pem()
                     cert_detail_object = CertificateProperties(pem_cert_object).get_properties()
-                    print()
-                    print(cert_detail_object)
                     cert_detail_object = CertificateValidations(cert_detail_object).check_expiry()
                     cert_detail_objects.append(cert_detail_object)
 

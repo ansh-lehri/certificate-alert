@@ -11,21 +11,20 @@ class Struct:
 
 class FileConfig:
 
-    def __init__(self, socket_connection_timeout_seconds, warn_if_days_less_than, cron_schedule,
+    def __init__(self, socket_connection_timeout_seconds, warn_if_days_less_than,
                  slack_bot_token=None, slack_channel_id=None):
         self.socket_connection_timeout_seconds = socket_connection_timeout_seconds
         self.warn_if_days_less_than = warn_if_days_less_than
-        self.cron_schedule = cron_schedule
         self.slack_bot_token = slack_bot_token
         self.slack_channel_id = slack_channel_id
 
 
 class EnvConfig(FileConfig):
 
-    def __init__(self, socket_connection_timeout_seconds, warn_if_days_less_than, cron_schedule, 
+    def __init__(self, socket_connection_timeout_seconds, warn_if_days_less_than,
                  slack_bot_token=None, slack_channel_id=None):
 
-        super().__init__(socket_connection_timeout_seconds, warn_if_days_less_than, cron_schedule,
+        super().__init__(socket_connection_timeout_seconds, warn_if_days_less_than,
                          slack_bot_token, slack_channel_id)
         # Override variables from env
         if "SLACK_BOT_TOKEN" in os.environ:
@@ -42,7 +41,6 @@ class Config(EnvConfig):
             slack_channel_id=config_dict.get("SLACK_CHANNEL_ID", None),
             socket_connection_timeout_seconds=config_dict.get("SOCKET_CONNECTION_TIMEOUT_SECONDS"),
             warn_if_days_less_than=config_dict.get("WARN_IF_DAYS_LESS_THAN"),
-            cron_schedule=config_dict.get("CRON_SCHEDULE")
         )
         # Set any extra variables from config file, create python object
         extra_config_dict = {k: v for k, v in config_dict.items() if k not in self.__dict__}
